@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/_3Dapi.iml" filepath="$PROJECT_DIR$/_3Dapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/calculate/calculate.iml" filepath="$PROJECT_DIR$/calculate/calculate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/init/init.iml" filepath="$PROJECT_DIR$/init/init.iml" />
+      <module fileurl="file://$PROJECT_DIR$/input_handler/input_handler.iml" filepath="$PROJECT_DIR$/input_handler/input_handler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/renderer/renderer.iml" filepath="$PROJECT_DIR$/renderer/renderer.iml" />
+    </modules>
+  </component>
+</project>
