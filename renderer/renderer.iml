@@ -11,5 +11,27 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="init" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-assimp:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-bgfx:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-glfw:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-nanovg:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-nuklear:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-openal:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-opengl:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-par:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-stb:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-vulkan:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl:natives-windows:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-assimp:natives-windows:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-bgfx:natives-windows:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-glfw:natives-windows:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-nanovg:natives-windows:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-nuklear:natives-windows:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-openal:natives-windows:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-opengl:natives-windows:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-par:natives-windows:3.1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-stb:natives-windows:3.1.6" level="project" />
   </component>
 </module>
