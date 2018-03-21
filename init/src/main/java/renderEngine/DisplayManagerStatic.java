@@ -14,7 +14,7 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
 
-public class DisplayManager {
+public class DisplayManagerStatic {
 
     public static long window;
     public static final int WIDTH = 1024;
@@ -40,7 +40,7 @@ public class DisplayManager {
             throw new RuntimeException("Failed to create the GLFW window");
 
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
-        glfwSetKeyCallback(DisplayManager.window, (window, key, scancode, action, mods) -> {
+        glfwSetKeyCallback(DisplayManagerStatic.window, (window, key, scancode, action, mods) -> {
             if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
                 glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
         });
