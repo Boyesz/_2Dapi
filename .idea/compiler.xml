@@ -8,13 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="calculate" />
         <module name="init" />
-        <module name="input_handler" />
         <module name="renderer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="9">
       <module name="_3Dapi" target="9" />
       <module name="calculate" target="9" />
+      <module name="game" target="9" />
       <module name="init" target="9" />
       <module name="input_handler" target="9" />
       <module name="renderer" target="9" />

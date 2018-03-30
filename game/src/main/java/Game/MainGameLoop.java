@@ -33,6 +33,7 @@ public class MainGameLoop {
             return; //TODO
         else
             displayManager = DisplayManagerOpenGL.getInstance();
+
         //Ez inicializál mindent szóval csak utána tudunk hívogatni opengl es dolgokat
         displayManager.createDisplay();
         //Betöltjük a modelt a VAO-ba
@@ -47,7 +48,6 @@ public class MainGameLoop {
             shader.stop();
 
         }
-
         shader.cleanUp();
         loader.cleanUP();
         displayManager.closeDisplay();

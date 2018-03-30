@@ -11,6 +11,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="init" />
     <orderEntry type="library" name="Maven: org.lwjgl:lwjgl:3.1.6" level="project" />
     <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-assimp:3.1.6" level="project" />
     <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-bgfx:3.1.6" level="project" />
