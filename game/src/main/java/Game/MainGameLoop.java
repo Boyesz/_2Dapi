@@ -1,9 +1,6 @@
 package Game;
 
-import core.Loader;
-import core.RawModel;
-import core.ShaderOpenGL;
-import core.VertexRenderer;
+import core.*;
 import renderEngine.DisplayManagerOpenGL;
 import renderEngine.rendererTypes.IDisplayManager;
 
@@ -18,15 +15,22 @@ public class MainGameLoop {
         boolean useD3D = false;
 
         Loader loader = new Loader();
-        VertexRenderer renderer = new VertexRenderer();
+        Renderer renderer = new Renderer();
 
         float[] vertices = {
                 -0.5f, 0.5f, 0f,
                 -0.5f, -0.5f, 0f,
                 0.5f, -0.5f, 0f,
-                0.5f, -0.5f, 0f,
                 0.5f, 0.5f, 0f,
-                -0.5f, 0.5f, 0f
+        };
+
+        int[] indicies = {
+                0,1,3,
+                3,1,2
+        };
+
+        float[] textureCoords = {
+                0,0,0,1,1,1,1,0
         };
         //ha DirectX akkor térjen vissza egy Singleton DirectX ablak kezelő példányal ami megvílósítja a IDisplayManagert, különben OpenGL.
         if( useD3D)
@@ -37,14 +41,16 @@ public class MainGameLoop {
         //Ez inicializál mindent szóval csak utána tudunk hívogatni opengl es dolgokat
         displayManager.createDisplay();
         //Betöltjük a modelt a VAO-ba
-        RawModel model = loader.loadToVAO(vertices);
+        RawModel model = loader.loadToVAO(vertices,textureCoords,indicies);
+        TextureModel texture = new TextureModel(loader.loadTexture("sprite"));
+        TexturedModel texturedModel = new TexturedModel(model,texture);
         ShaderOpenGL shader = new ShaderOpenGL();
         while (!glfwWindowShouldClose(displayManager.getWindow())){
 
             displayManager.updateDisplay();
             //Ki rendereljük a modelt
             shader.start();
-            renderer.render(model);
+            renderer.render(texturedModel);
             shader.stop();
 
         }

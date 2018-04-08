@@ -4,8 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/_3Dapi.iml" filepath="$PROJECT_DIR$/_3Dapi.iml" />
       <module fileurl="file://$PROJECT_DIR$/calculate/calculate.iml" filepath="$PROJECT_DIR$/calculate/calculate.iml" />
-      <module fileurl="file://$PROJECT_DIR$/game/renderer.iml" filepath="$PROJECT_DIR$/game/renderer.iml" />
       <module fileurl="file://$PROJECT_DIR$/init/init.iml" filepath="$PROJECT_DIR$/init/init.iml" />
+      <module fileurl="file://$PROJECT_DIR$/game/renderer.iml" filepath="$PROJECT_DIR$/game/renderer.iml" />
     </modules>
   </component>
 </project>
