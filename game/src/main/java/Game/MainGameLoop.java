@@ -1,5 +1,6 @@
 package Game;
 
+import Game.GameComponents.GameObject;
 import core.*;
 import renderEngine.DisplayManagerOpenGL;
 import renderEngine.rendererTypes.IDisplayManager;
@@ -14,24 +15,11 @@ public class MainGameLoop {
         //OpenGL vagy DirectX.
         boolean useD3D = false;
 
+
         Loader loader = new Loader();
         Renderer renderer = new Renderer();
 
-        float[] vertices = {
-                -0.5f, 0.5f, 0f,
-                -0.5f, -0.5f, 0f,
-                0.5f, -0.5f, 0f,
-                0.5f, 0.5f, 0f,
-        };
 
-        int[] indicies = {
-                0,1,3,
-                3,1,2
-        };
-
-        float[] textureCoords = {
-                0,0,0,1,1,1,1,0
-        };
         //ha DirectX akkor térjen vissza egy Singleton DirectX ablak kezelő példányal ami megvílósítja a IDisplayManagert, különben OpenGL.
         if( useD3D)
             return; //TODO
@@ -40,18 +28,28 @@ public class MainGameLoop {
 
         //Ez inicializál mindent szóval csak utána tudunk hívogatni opengl es dolgokat
         displayManager.createDisplay();
-        //Betöltjük a modelt a VAO-ba
-        RawModel model = loader.loadToVAO(vertices,textureCoords,indicies);
-        TextureModel texture = new TextureModel(loader.loadTexture("sprite"));
-        TexturedModel texturedModel = new TexturedModel(model,texture);
+
         ShaderOpenGL shader = new ShaderOpenGL();
+        try {
+            shader.createUniform("worldMatrix");
+            shader.createUniform("textureSampler");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        GameObject uto01 = new GameObject(shader,renderer,loader,"kek");
+        //GameObject uto02 = new GameObject(shader,renderer,loader,"piros.png",10,10,132,132);
+
+
+
+
         while (!glfwWindowShouldClose(displayManager.getWindow())){
 
             displayManager.updateDisplay();
             //Ki rendereljük a modelt
-            shader.start();
-            renderer.render(texturedModel);
-            shader.stop();
+            uto01.renderObject();
+            //uto02.renderObject();
 
         }
         shader.cleanUp();

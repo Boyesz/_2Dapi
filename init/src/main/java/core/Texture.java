@@ -1,5 +1,6 @@
 package core;
 
+import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
@@ -9,10 +10,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import static org.lwjgl.opengl.GL11.GL_RGB;
 import static org.lwjgl.opengl.GL11.GL_RGBA;
 
 public class Texture {
+
     private int id;
     private int width;
     private int height;
@@ -28,6 +29,7 @@ public class Texture {
     public int getHeight() {
         return height;
     }
+
 
     public Texture(String fileName){
         BufferedImage bi;

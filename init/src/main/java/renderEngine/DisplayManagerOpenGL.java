@@ -18,8 +18,8 @@ import static org.lwjgl.system.MemoryStack.stackPush;
 public class DisplayManagerOpenGL implements IDisplayManager {
 
     public long window;
-    public final int WIDTH = 1024;
-    public final int HEIGHT = 768;
+    public final int WIDTH = 650;
+    public final int HEIGHT = 480;
 
     private static DisplayManagerOpenGL ourInstance = new DisplayManagerOpenGL();
 

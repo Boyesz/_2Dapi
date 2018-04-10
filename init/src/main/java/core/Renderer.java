@@ -1,5 +1,6 @@
 package core;
 
+import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
@@ -7,8 +8,11 @@ import org.lwjgl.opengl.GL30;
 
 public class Renderer {
 
-    public void render(TexturedModel texturedModel){
+    public void render(TexturedModel texturedModel,ShaderOpenGL shaderOpenGL){
+        shaderOpenGL.start();
         RawModel model = texturedModel.getRawModel();
+        Matrix4f worldMatrix = texturedModel.getWorldMatrix();
+        shaderOpenGL.setUniform("worldMatrix", worldMatrix);
         GL30.glBindVertexArray(model.getVaoID());
         GL20.glEnableVertexAttribArray(0);
         GL20.glEnableVertexAttribArray(1);
@@ -18,6 +22,7 @@ public class Renderer {
         GL20.glDisableVertexAttribArray(0);
         GL20.glDisableVertexAttribArray(1);
         GL30.glBindVertexArray(0);
+        shaderOpenGL.stop();
     }
 
 }

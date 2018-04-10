@@ -33,7 +33,7 @@ public class Loader {
     }
 
     public int loadTexture(String fileName){
-        Texture texture = new Texture("sprite");;
+        Texture texture = new Texture(fileName);
         int textureID = texture.getId();
         textures.add(textureID);
         return textureID;
