@@ -11,13 +11,11 @@
         <module name="renderer" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="9">
-      <module name="_3Dapi" target="9" />
-      <module name="calculate" target="9" />
-      <module name="game" target="9" />
-      <module name="init" target="9" />
-      <module name="input_handler" target="9" />
-      <module name="renderer" target="9" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="_3Dapi" target="1.8" />
+      <module name="calculate" target="1.8" />
+      <module name="init" target="1.8" />
+      <module name="renderer" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
