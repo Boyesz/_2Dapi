@@ -1,12 +1,16 @@
 package QuickMaths;
 
+        import org.joml.Matrix4f;
+        import org.joml.Vector3f;
+
 public class QuickMaths {
-    public static MATRIX4X4 createTransformationMatrix(Vector3D translation, float rx, float ry, float rz, float scale)
+    public static Matrix4f createTransformationMatrix(Vector3f translation,
+                                                      float scale)
     {
-        MATRIX4X4 matrix = new MATRIX4X4();
+        Matrix4f matrix = new Matrix4f();
         matrix.identity();
-        matrix.translate(translation);
-        matrix.scale(scale);
-        return null;
+        matrix.setTranslation(translation.x, translation.y, translation.z);
+        matrix.scale(scale,scale,scale);
+        return matrix;
     }
 }

@@ -63,8 +63,7 @@ public abstract class ShaderProgram {
 
     protected void loadMatrix(int location, Matrix4f matrix)
     {
-        matrix.set(matrixBuffer);
-        matrixBuffer.flip();
+        matrix.get(matrixBuffer);
         GL20.glUniformMatrix4fv(location,false,matrixBuffer);
     }
 
@@ -73,7 +72,6 @@ public abstract class ShaderProgram {
         if (uniformLocation < 0) {
             throw new Exception("Could not find uniform:" + uniformName);
         }
-
     }
 
     public void start(){

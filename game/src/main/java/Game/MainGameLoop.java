@@ -1,8 +1,8 @@
 package Game;
 
-import QuickMaths.Vector3D;
 import core.GameObject;
 import core.*;
+import org.joml.Vector3f;
 import renderEngine.DisplayManagerOpenGL;
 import renderEngine.rendererTypes.IDisplayManager;
 
@@ -51,13 +51,19 @@ public class MainGameLoop {
 
         TexturedModel staticModel = new TexturedModel(model,new TextureModel(loader.loadTexture("kek")));
 
-        Vector3D asd = new Vector3D();
-        asd.x = 0;
-        asd.y = 0;
-        asd.z = 0;
-        GameObject uto01 = new GameObject(staticModel,asd,0);
+        Vector3f asd = new Vector3f();
+        asd.x = 0.5f;
+        asd.y = 0.5f;
+        asd.z = 0.0f;
+        GameObject uto01 = new GameObject(staticModel,asd,0.2f);
 
         while (!glfwWindowShouldClose(displayManager.getWindow())){
+
+            Vector3f gamePos = uto01.getPosition();
+
+            gamePos.x -= 0.1f;
+
+            uto01.setPosition(gamePos);
 
             displayManager.updateDisplay();
             //Ki rendereljük a modelt

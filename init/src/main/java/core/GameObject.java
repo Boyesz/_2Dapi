@@ -1,14 +1,14 @@
 package core;
 
-import QuickMaths.Vector3D;
+import org.joml.Vector3f;
 
 public class GameObject {
 
+    Vector3f position;
     private TexturedModel model;
-    private Vector3D position;
     private float scale;
 
-    public GameObject(TexturedModel model, Vector3D position, float scale) {
+    public GameObject(TexturedModel model, Vector3f position, float scale) {
         this.model = model;
         this.position = position;
         this.scale = scale;
@@ -28,11 +28,11 @@ public class GameObject {
         this.model = model;
     }
 
-    public Vector3D getPosition() {
+    public Vector3f getPosition() {
         return position;
     }
 
-    public void setPosition(Vector3D position) {
+    public void setPosition(Vector3f position) {
         this.position = position;
     }
 

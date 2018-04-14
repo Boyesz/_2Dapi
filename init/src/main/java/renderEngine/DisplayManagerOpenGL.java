@@ -74,7 +74,7 @@ public class DisplayManagerOpenGL implements IDisplayManager {
         // Make the OpenGL context current
         glfwMakeContextCurrent(window);
         // Disable v-sync
-        glfwSwapInterval(0);
+        glfwSwapInterval(1);
 
         // Make the window visible
         glfwShowWindow(window);
@@ -96,6 +96,12 @@ public class DisplayManagerOpenGL implements IDisplayManager {
     public void updateDisplay(){
 
         glfwSwapBuffers(window); // swap the color buffers
+
+
+        // Set the clear color
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
         // Poll for window events. The key callback above will only be
         // invoked during this call.
