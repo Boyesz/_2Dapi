@@ -1,6 +1,7 @@
 package Game;
 
-import Game.GameComponents.GameObject;
+import QuickMaths.Vector3D;
+import core.GameObject;
 import core.*;
 import renderEngine.DisplayManagerOpenGL;
 import renderEngine.rendererTypes.IDisplayManager;
@@ -19,6 +20,21 @@ public class MainGameLoop {
         Loader loader = new Loader();
         Renderer renderer = new Renderer();
 
+        int[] indicies = {
+                0,1,3,
+                3,1,2
+        };
+
+        float[] textureCoords = {
+                0,0,0,1,1,1,1,0
+        };
+
+        float[] vertices = {
+                -0.5f, 0.5f, 0f,
+                -0.5f, -0.5f, 0f,
+                0.5f, -0.5f, 0f,
+                0.5f, 0.5f, 0f,
+        };
 
         //ha DirectX akkor térjen vissza egy Singleton DirectX ablak kezelő példányal ami megvílósítja a IDisplayManagert, különben OpenGL.
         if( useD3D)
@@ -30,25 +46,24 @@ public class MainGameLoop {
         displayManager.createDisplay();
 
         ShaderOpenGL shader = new ShaderOpenGL();
-        try {
-            shader.createUniform("worldMatrix");
-            shader.createUniform("textureSampler");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
+        RawModel model = loader.loadToVAO(vertices,textureCoords,indicies);
 
-        GameObject uto01 = new GameObject(shader,renderer,loader,"kek");
-        //GameObject uto02 = new GameObject(shader,renderer,loader,"piros.png",10,10,132,132);
+        TexturedModel staticModel = new TexturedModel(model,new TextureModel(loader.loadTexture("kek")));
 
-
-
+        Vector3D asd = new Vector3D();
+        asd.x = 0;
+        asd.y = 0;
+        asd.z = 0;
+        GameObject uto01 = new GameObject(staticModel,asd,0);
 
         while (!glfwWindowShouldClose(displayManager.getWindow())){
 
             displayManager.updateDisplay();
             //Ki rendereljük a modelt
-            uto01.renderObject();
+            shader.start();
+            renderer.render(uto01,shader);
+            shader.stop();
             //uto02.renderObject();
 
         }

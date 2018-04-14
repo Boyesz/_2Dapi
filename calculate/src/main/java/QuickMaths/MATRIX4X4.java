@@ -1,4 +1,4 @@
-package math;
+package QuickMaths;
 
 public class MATRIX4X4 {
 
@@ -138,12 +138,12 @@ public class MATRIX4X4 {
         entries5 = c;
     }
 
-    public void scale(Vector3D scale) {
+    public void scale(float scale) {
         identity();
 
-        entries0 = scale.x;
-        entries5 = scale.y;
-        entries10 = scale.z;
+        entries0 = scale;
+        entries5 = scale;
+        entries10 = scale;
     }
 
     public void transformPoint(Vector3D vec) {

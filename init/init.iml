@@ -11,6 +11,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="calculate" />
     <orderEntry type="library" name="Maven: org.lwjgl:lwjgl:3.1.6" level="project" />
     <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-assimp:3.1.6" level="project" />
     <orderEntry type="library" name="Maven: org.joml:joml:1.9.9" level="project" />

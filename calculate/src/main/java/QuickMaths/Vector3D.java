@@ -1,4 +1,4 @@
-package math;
+package QuickMaths;
 
 /***********************************
  * This is our 3D point class. This will be used to store the vertices of our

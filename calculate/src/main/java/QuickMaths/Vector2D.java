@@ -1,4 +1,4 @@
-package math;
+package QuickMaths;
 
 // This is our 2D point class. This will be used to store the UV coordinates.
 /**
