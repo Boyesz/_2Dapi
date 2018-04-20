@@ -96,13 +96,12 @@ public class MainGameLoop {
     }
 
     static void inputHandler(){
-        mousePosCurrent = displayManager.getCursorPos();
-        mousePos[0] = mousePosCurrent[0] - mousePosOld[0];
-        mousePos[1] = mousePosCurrent[1] - mousePosOld[1];
-        Vector3f newPlayerPos = new Vector3f( piros.getPosition().x + ((float)mousePos[0]*mouseSensiX) ,piros.getPosition().y + ((float)mousePos[1]*mouseSensiY),0.0f);
-        piros.setPosition(newPlayerPos);
-        mousePosOld = mousePosCurrent;
-
+            mousePosCurrent = displayManager.getCursorPos();
+            mousePos[0] = mousePosCurrent[0] - mousePosOld[0];
+            mousePos[1] = mousePosCurrent[1] - mousePosOld[1];
+            Vector3f newPlayerPos = new Vector3f( piros.getPosition().x + ((float)mousePos[0]*mouseSensiX) ,piros.getPosition().y + ((float)mousePos[1]*mouseSensiY),0.0f);
+            piros.setPosition(newPlayerPos);
+            mousePosOld = mousePosCurrent;
     }
 
 }
