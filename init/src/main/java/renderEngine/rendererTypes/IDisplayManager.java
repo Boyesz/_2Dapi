@@ -10,5 +10,6 @@ public interface IDisplayManager {
 
     long getWindow();
 
+    double[] getCursorPos();
 
 }

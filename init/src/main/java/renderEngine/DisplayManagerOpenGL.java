@@ -1,5 +1,6 @@
 package renderEngine;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -7,6 +8,7 @@ import org.lwjgl.opengl.GLUtil;
 import org.lwjgl.system.MemoryStack;
 import renderEngine.rendererTypes.IDisplayManager;
 
+import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 
 import static java.sql.Types.NULL;
@@ -89,7 +91,28 @@ public class DisplayManagerOpenGL implements IDisplayManager {
         // Set the clear color
         glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
 
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        //glfwSetInputMode(window,GLFW_CURSOR,GLFW_CURSOR_HIDDEN);
+        //glfwSetInputMode(window,GLFW_CURSOR,GLFW_CURSOR_DISABLED);
+
+        //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
         GLUtil.setupDebugMessageCallback(System.out);
+
+
+    }
+
+    public double[] getCursorPos()
+    {
+        DoubleBuffer posX = BufferUtils.createDoubleBuffer(1);
+        DoubleBuffer posY = BufferUtils.createDoubleBuffer(1);
+        glfwGetCursorPos(window, posX, posY);
+        double[] position = new double[2];
+        position[0] = posX.get(0);
+        position[1] = posY.get(0);
+        return position;
     }
 
 
