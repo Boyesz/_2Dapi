@@ -1,5 +1,6 @@
 package core;
 
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -29,7 +30,6 @@ public class Texture {
     public int getHeight() {
         return height;
     }
-
 
 
     public Texture(String fileName){
@@ -69,5 +69,4 @@ public class Texture {
             e.printStackTrace();
         }
     }
-
 }

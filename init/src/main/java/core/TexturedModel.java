@@ -1,6 +1,7 @@
 package core;
 
 import org.joml.Matrix4f;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public class TexturedModel {
@@ -20,9 +21,17 @@ public class TexturedModel {
     private RawModel rawModel;
     private TextureModel textureModel;
 
+    private HitBox mAABBOriginal;
+    private HitBox mAABBTransformed;
+
     public TexturedModel(RawModel rawModel, TextureModel textureModel) {
         this.rawModel = rawModel;
         this.textureModel = textureModel;
+        Vector2f minPoint = new Vector2f(0.0F, 0.0F);
+        Vector2f maxPoint = new Vector2f((float)this.width, (float)this.height);
+
+        this.mAABBOriginal = new HitBox(minPoint, maxPoint);
+        this.mAABBTransformed = new HitBox(minPoint, maxPoint);
     }
 
     public RawModel getRawModel() {
@@ -54,6 +63,9 @@ public class TexturedModel {
         return position;
     }
 
+
+
+
     public void setPosition(float x, float y, float z) {
         this.position.x = x;
         this.position.y = y;
@@ -71,6 +83,25 @@ public class TexturedModel {
         mTranformation.scale(scale, scale, 1);
 
         return mTranformation;
+    }
+
+    public HitBox getTransformedBoundingBox() {
+
+        mAABBTransformed.SetPoints(mAABBOriginal.GetMinPoint(), mAABBOriginal.GetMaxPoint());
+        //this.mAABBTransformed.transformByScale(new Vector2f(this.scale, this.scale));
+        mAABBTransformed.transformByScale(new Vector2f(scale,scale));
+        mAABBTransformed.transformByTranslate(new Vector2f(position.x, position.y));
+        return this.mAABBTransformed;
+    }
+
+    public HitBox getmAABBOriginal()
+    {
+        return mAABBOriginal;
+    }
+
+    public HitBox getmAABBTransformed()
+    {
+        return mAABBTransformed;
     }
 
 }
