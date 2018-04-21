@@ -1,6 +1,5 @@
 package core;
 
-import QuickMaths.MATRIX4X4;
 import QuickMaths.QuickMaths;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
