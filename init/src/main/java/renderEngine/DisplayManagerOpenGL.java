@@ -145,4 +145,13 @@ public class DisplayManagerOpenGL implements IDisplayManager {
     public long getWindow() {
         return window;
     }
+
+    public int getWIDTH(){
+        return WIDTH;
+    }
+
+
+    public int getHEIGHT(){
+        return HEIGHT;
+    }
 }

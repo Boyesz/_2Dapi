@@ -69,10 +69,10 @@ public class MainGameLoop {
         TexturedModel palya = new TexturedModel(palyaModel,new TextureModel(loader.loadTexture("palya")));
         TexturedModel labda = new TexturedModel(labdaModel,new TextureModel(loader.loadTexture("korong")));
 
-        kek = new GameObject(kekUto,new Vector3f(0.5f,0,0),0.15f);
-        piros = new GameObject(pirosUto,new Vector3f(-0.5f,0,0),0.15f);
-        palyaObj = new GameObject(palya,new Vector3f(0,0,0),2f);
-        labdaObj = new GameObject(labda,new Vector3f(0,0,0),0.1f);
+        kek = new GameObject(kekUto,new Vector3f(0.5f,0,0),0.15f , 0.08f);
+        piros = new GameObject(pirosUto,new Vector3f(-0.5f,0,0),0.15f, 0.08f);
+        palyaObj = new GameObject(palya,new Vector3f(0,0,0),2f, 0.0f);
+        labdaObj = new GameObject(labda,new Vector3f(0.0f,0,0),0.1f, 0.03f);
 
         while (!glfwWindowShouldClose(displayManager.getWindow())){
             displayManager.updateDisplay();
@@ -93,6 +93,67 @@ public class MainGameLoop {
 
     static void gameLogic(){
         inputHandler();
+        checkWalls();
+        makeGamePhysicsByHitbox();
+    }
+
+    static void makeGamePhysicsByHitbox(){
+        //Ütközik a labda a piros playerrel
+        if(piros.getHitCircleTransformed().checkOverlapping(labdaObj.getHitCircleTransformed()))
+            System.out.println("Hit");
+        //Ütközik a labda a kek playerrel
+        if(kek.getHitCircleTransformed().checkOverlapping(labdaObj.getHitCircleTransformed()));
+            //TODO
+
+    }
+
+    static void checkWalls(){
+        //Piros Player
+
+        //check mid line.
+        if(piros.getPosition().x >= palyaObj.getPosition().x -0.05f)
+            piros.setPosition(new Vector3f(palyaObj.getPosition().x -0.05f,piros.getPosition().y,0.0f));
+        //check left side.
+        if(piros.getPosition().x <= palyaObj.getPosition().x - 0.9f)
+            piros.setPosition(new Vector3f( palyaObj.getPosition().x - 0.9f ,piros.getPosition().y,0.0f));
+        //check up side.
+        if(piros.getPosition().y >= palyaObj.getPosition().y + 0.87f)
+            piros.setPosition(new Vector3f( piros.getPosition().x,palyaObj.getPosition().y +0.87f,0.0f));
+        //check down side.
+        if(piros.getPosition().y <= palyaObj.getPosition().y - 0.87f)
+            piros.setPosition(new Vector3f( piros.getPosition().x,palyaObj.getPosition().y - 0.87f,0.0f));
+
+        //Kek Player
+
+        //check mid line.
+        if(kek.getPosition().x <= palyaObj.getPosition().x +0.05f)
+            kek.setPosition(new Vector3f(palyaObj.getPosition().x + 0.05f,kek.getPosition().y,0.0f));
+        //check left side.
+        if(kek.getPosition().x >= palyaObj.getPosition().x + 0.9f)
+            kek.setPosition(new Vector3f( palyaObj.getPosition().x + 0.9f ,kek.getPosition().y,0.0f));
+        //check up side.
+        if(kek.getPosition().y <= palyaObj.getPosition().y - 0.87f)
+            kek.setPosition(new Vector3f( kek.getPosition().x,palyaObj.getPosition().y -0.87f,0.0f));
+        //check down side.
+        if(kek.getPosition().y >= palyaObj.getPosition().y + 0.87f)
+            kek.setPosition(new Vector3f( kek.getPosition().x,palyaObj.getPosition().y + 0.87f,0.0f));
+
+        //Labda Object
+
+        //check right side.
+        if(labdaObj.getPosition().x >= palyaObj.getPosition().x + 0.9f)
+            //TODO
+        //check up side.
+        if(labdaObj.getPosition().y <= palyaObj.getPosition().y - 0.87f)
+            //TODO
+        //check down side.
+        if(labdaObj.getPosition().y >= palyaObj.getPosition().y + 0.87f)
+            //TODO
+        //check left side.
+        if(labdaObj.getPosition().x >= palyaObj.getPosition().x + 0.9f){
+            //TODO
+        }
+
     }
 
     static void inputHandler(){

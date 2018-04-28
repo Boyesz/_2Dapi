@@ -12,4 +12,8 @@ public interface IDisplayManager {
 
     double[] getCursorPos();
 
+    int getWIDTH();
+
+    int getHEIGHT();
+
 }

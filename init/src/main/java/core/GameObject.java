@@ -1,5 +1,6 @@
 package core;
 
+import core.hitBoxes.HitCircle;
 import org.joml.Vector3f;
 
 public class GameObject {
@@ -8,10 +9,21 @@ public class GameObject {
     private TexturedModel model;
     private float scale;
 
-    public GameObject(TexturedModel model, Vector3f position, float scale) {
+    private float sugar;
+
+
+    HitCircle hitCircleOriginal;
+
+    HitCircle hitCircleTransformed;
+
+    public GameObject(TexturedModel model, Vector3f position, float scale , float r) {
         this.model = model;
         this.position = position;
         this.scale = scale;
+
+        sugar = r;
+
+        hitCircleOriginal = new HitCircle(position.x,position.y,0.2f);
     }
 
     public void increasePosition(float dx,float dy,float dz){
@@ -42,5 +54,14 @@ public class GameObject {
 
     public void setScale(float scale) {
         this.scale = scale;
+    }
+
+    public HitCircle getHitCircleOriginal() {
+        return hitCircleOriginal;
+    }
+
+    public HitCircle getHitCircleTransformed() {
+        hitCircleTransformed = new HitCircle(position.x,position.y,sugar);
+        return hitCircleTransformed;
     }
 }
