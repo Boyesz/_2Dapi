@@ -23,7 +23,7 @@ public class GameObject {
 
         sugar = r;
 
-        hitCircleOriginal = new HitCircle(position.x,position.y,0.2f);
+        hitCircleOriginal = new HitCircle(position.x,position.y,r);
     }
 
     public void increasePosition(float dx,float dy,float dz){
