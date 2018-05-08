@@ -14,7 +14,7 @@ public class HitCircle {
 
     public boolean checkOverlapping(HitCircle circle){
 
-        if(Math.pow((x - circle.x),2) + Math.pow((y+circle.y),2) <= Math.pow((r + circle.r),2))
+        if(Math.pow((x - circle.x),2) + Math.pow((y - circle.y),2) <= Math.pow((r + circle.r),2))
             return true;
 
         return false;

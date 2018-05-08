@@ -16,12 +16,16 @@ public class MainGameLoop {
     static GameObject palyaObj;
     static GameObject labdaObj;
 
+    //ezt bele égettük more
     static float mouseSensiX = 0.003f;
     static float mouseSensiY = -0.005f;
 
     static double[] mousePos =  new double[2];
     static double[] mousePosCurrent;
     static double[] mousePosOld = { 0.0, 0.0};
+    private static float labdaVelocityX;
+    private static float labdaVelocityY;
+    private static float mainSpeed = 0.01f;
 
 
     public static void main(String[] args){
@@ -72,7 +76,7 @@ public class MainGameLoop {
         kek = new GameObject(kekUto,new Vector3f(0.5f,0,0),0.15f , 0.08f);
         piros = new GameObject(pirosUto,new Vector3f(-0.5f,0,0),0.15f, 0.08f);
         palyaObj = new GameObject(palya,new Vector3f(0,0,0),2f, 0.0f);
-        labdaObj = new GameObject(labda,new Vector3f(0.0f,0,0),0.1f, 0.03f);
+        labdaObj = new GameObject(labda,new Vector3f(0,0,0),0.1f, 0.03f);
 
         while (!glfwWindowShouldClose(displayManager.getWindow())){
             displayManager.updateDisplay();
@@ -98,9 +102,53 @@ public class MainGameLoop {
     }
 
     static void makeGamePhysicsByHitbox(){
+
+        labdaObj.setPosition(new Vector3f(labdaObj.getPosition().x + labdaVelocityX,labdaObj.getPosition().y + labdaVelocityY,0.0f));
+
         //Ütközik a labda a piros playerrel
         if(piros.getHitCircleTransformed().checkOverlapping(labdaObj.getHitCircleTransformed()))
-            System.out.println("Hit");
+        {
+
+            System.out.println("Hittsda");
+
+            /*labdaVelocityX = -mainSpeed;
+            labdaVelocityY = mainSpeed;
+
+            System.out.println(labdaObj.getPosition().x);
+
+            System.out.println(labdaObj.getPosition().y);
+
+
+            System.out.println(piros.getPosition().x);
+
+
+            System.out.println(piros.getPosition().y);
+
+            /*System.out.println("Hit");
+
+            //Jobb lent*/
+            if(labdaObj.getPosition().x >= piros.getPosition().x && labdaObj.getPosition().y <= piros.getPosition().y)
+            {
+                labdaVelocityX = mainSpeed;
+                labdaVelocityY = -mainSpeed;
+            }
+            //Bal fent
+            if(labdaObj.getPosition().x <= piros.getPosition().x && labdaObj.getPosition().y >= piros.getPosition().y){
+                labdaVelocityX = -mainSpeed;
+                labdaVelocityY = mainSpeed;
+            }
+            //Bal lent
+            if(labdaObj.getPosition().x <= piros.getPosition().x && labdaObj.getPosition().y <= piros.getPosition().y){
+                labdaVelocityX = -mainSpeed;
+                labdaVelocityY = -mainSpeed;
+            }
+            //Jobb fent
+            if(labdaObj.getPosition().x >= piros.getPosition().x && labdaObj.getPosition().y >= piros.getPosition().y){
+                labdaVelocityX = mainSpeed;
+                labdaVelocityY = mainSpeed;
+            }
+
+        }
         //Ütközik a labda a kek playerrel
         if(kek.getHitCircleTransformed().checkOverlapping(labdaObj.getHitCircleTransformed()));
             //TODO
@@ -128,7 +176,7 @@ public class MainGameLoop {
         //check mid line.
         if(kek.getPosition().x <= palyaObj.getPosition().x +0.05f)
             kek.setPosition(new Vector3f(palyaObj.getPosition().x + 0.05f,kek.getPosition().y,0.0f));
-        //check left side.
+        //check right side.
         if(kek.getPosition().x >= palyaObj.getPosition().x + 0.9f)
             kek.setPosition(new Vector3f( palyaObj.getPosition().x + 0.9f ,kek.getPosition().y,0.0f));
         //check up side.
@@ -142,16 +190,16 @@ public class MainGameLoop {
 
         //check right side.
         if(labdaObj.getPosition().x >= palyaObj.getPosition().x + 0.9f)
-            //TODO
+           labdaVelocityX *= -1;
         //check up side.
         if(labdaObj.getPosition().y <= palyaObj.getPosition().y - 0.87f)
-            //TODO
+            labdaVelocityY *= -1;
         //check down side.
         if(labdaObj.getPosition().y >= palyaObj.getPosition().y + 0.87f)
-            //TODO
+            labdaVelocityY *= -1;
         //check left side.
-        if(labdaObj.getPosition().x >= palyaObj.getPosition().x + 0.9f){
-            //TODO
+        if(labdaObj.getPosition().x <= palyaObj.getPosition().x - 0.9f){
+            labdaVelocityX *= -1;
         }
 
     }
