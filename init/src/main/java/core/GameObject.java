@@ -8,6 +8,7 @@ public class GameObject {
     Vector3f position;
     private TexturedModel model;
     private float scale;
+    int score;
 
     private float sugar;
 
@@ -63,5 +64,13 @@ public class GameObject {
     public HitCircle getHitCircleTransformed() {
         hitCircleTransformed = new HitCircle(position.x,position.y,sugar);
         return hitCircleTransformed;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }

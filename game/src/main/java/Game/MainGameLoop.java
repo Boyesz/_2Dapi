@@ -27,7 +27,6 @@ public class MainGameLoop {
     private static float labdaVelocityY;
     private static float mainSpeed = 0.01f;
 
-
     public static void main(String[] args){
 
         //OpenGL vagy DirectX.
@@ -78,6 +77,9 @@ public class MainGameLoop {
         palyaObj = new GameObject(palya,new Vector3f(0,0,0),2f, 0.0f);
         labdaObj = new GameObject(labda,new Vector3f(0,0,0),0.1f, 0.03f);
 
+        kek.setScore(0);
+        piros.setScore(0);
+
         while (!glfwWindowShouldClose(displayManager.getWindow())){
             displayManager.updateDisplay();
             gameLogic();
@@ -97,6 +99,7 @@ public class MainGameLoop {
 
     static void gameLogic(){
         inputHandler();
+        checkGoal();
         checkWalls();
         makeGamePhysicsByHitbox();
     }
@@ -108,24 +111,6 @@ public class MainGameLoop {
         //Ütközik a labda a piros playerrel
         if(piros.getHitCircleTransformed().checkOverlapping(labdaObj.getHitCircleTransformed()))
         {
-
-            System.out.println("Hittsda");
-
-            /*labdaVelocityX = -mainSpeed;
-            labdaVelocityY = mainSpeed;
-
-            System.out.println(labdaObj.getPosition().x);
-
-            System.out.println(labdaObj.getPosition().y);
-
-
-            System.out.println(piros.getPosition().x);
-
-
-            System.out.println(piros.getPosition().y);
-
-            /*System.out.println("Hit");
-
             //Jobb lent*/
             if(labdaObj.getPosition().x >= piros.getPosition().x && labdaObj.getPosition().y <= piros.getPosition().y)
             {
@@ -204,6 +189,29 @@ public class MainGameLoop {
 
     }
 
+    static void checkGoal(){
+        if(labdaObj.getPosition().x <= palyaObj.getPosition().x -0.89f && labdaObj.getPosition().y <= palyaObj.getPosition().y + 0.38f && labdaObj.getPosition().y >= palyaObj.getPosition().y - 0.38f)
+        {
+            kek.setScore(kek.getScore() + 1);
+            resetBall();
+            System.out.println("Kes Pontszama: " + kek.getScore());
+        }
+
+        if(labdaObj.getPosition().x >= palyaObj.getPosition().x + 0.89f && labdaObj.getPosition().y <= palyaObj.getPosition().y + 0.38f && labdaObj.getPosition().y >= palyaObj.getPosition().y - 0.38f)
+        {
+            piros.setScore(piros.getScore() + 1);
+            resetBall();
+            System.out.println("Piros Pontszama: " + piros.getScore());
+        }
+
+    }
+
+    private static void resetBall() {
+        labdaVelocityX = 0.0f;
+        labdaVelocityY = 0.0f;
+        labdaObj.setPosition(new Vector3f(0.0f,0.0f,0.0f));
+    }
+
     static void inputHandler(){
             mousePosCurrent = displayManager.getCursorPos();
             mousePos[0] = mousePosCurrent[0] - mousePosOld[0];
@@ -212,5 +220,7 @@ public class MainGameLoop {
             piros.setPosition(newPlayerPos);
             mousePosOld = mousePosCurrent;
     }
+
+
 
 }
