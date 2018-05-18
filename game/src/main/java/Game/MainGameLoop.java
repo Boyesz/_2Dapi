@@ -6,6 +6,12 @@ import org.joml.Vector3f;
 import renderEngine.DisplayManagerOpenGL;
 import renderEngine.rendererTypes.IDisplayManager;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.xml.transform.Source;
+import java.io.File;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 public class MainGameLoop {
@@ -16,7 +22,7 @@ public class MainGameLoop {
     static GameObject palyaObj;
     static GameObject labdaObj;
 
-    //ezt bele égettük more
+    //ezt bele égettük more DONT TOUCH
     static float mouseSensiX = 0.003f;
     static float mouseSensiY = -0.005f;
 
@@ -26,6 +32,13 @@ public class MainGameLoop {
     private static float labdaVelocityX;
     private static float labdaVelocityY;
     private static float mainSpeed = 0.01f;
+
+    /*static SoundSource  mainMusic;
+    static SoundSource hit1;
+    static SoundSource hit2;*/
+
+    static Clip hit1;
+    static Clip hit2;
 
     public static void main(String[] args){
 
@@ -80,6 +93,42 @@ public class MainGameLoop {
         kek.setScore(0);
         piros.setScore(0);
 
+        //SoundSource mainMusic = new SoundSource("./game/src/main/java/Game/mainMusic.mp3");
+        /*Media hit = new Media(new File("./game/src/main/java/Game/mainMusic.mp3").toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(hit);
+        mediaPlayer.play();*/
+
+        String executionPath = System.getProperty("user.dir");
+        System.out.print("Executing at =>"+executionPath);
+
+        /*mainMusic = new SoundSource();
+        mainMusic.LoadFile("game/src/main/java/Game/mainMusic.wav");*/
+        /*hit1 = new SoundSource();
+        hit1.LoadFile("game/src/main/java/Game/hit1.wav");*/
+        /*hit2 = new SoundSource();
+        hit2.LoadFile("game/src/main/java/Game/hit2.wav");*/
+
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("game/src/main/java/Game/mainMusic.wav"));
+            AudioInputStream hit1AudioStream = AudioSystem.getAudioInputStream(new File("game/src/main/java/Game/hit1.wav"));
+            AudioInputStream hit2AudioStream = AudioSystem.getAudioInputStream(new File("game/src/main/java/Game/hit2.wav"));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+             hit1 = AudioSystem.getClip();
+            hit1.open(hit1AudioStream);
+             hit2 = AudioSystem.getClip();
+            hit2.open(hit2AudioStream );
+
+            clip.start();
+            // If you want the sound to loop infinitely, then put: clip.loop(Clip.LOOP_CONTINUOUSLY);
+            // If you want to stop the sound, then use clip.stop();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        //mainMusic.Play();
+
+
         while (!glfwWindowShouldClose(displayManager.getWindow())){
             displayManager.updateDisplay();
             gameLogic();
@@ -98,39 +147,56 @@ public class MainGameLoop {
     }
 
     static void gameLogic(){
+        float oldPirosMoveX = piros.getPosition().x;
+        float oldPirosMoveY = piros.getPosition().y;
         inputHandler();
         checkGoal();
         checkWalls();
         makeGamePhysicsByHitbox();
+        mainSpeed =(float)Math.sqrt(Math.pow(oldPirosMoveX - piros.getPosition().x,2) + Math.pow(oldPirosMoveY - piros.getPosition().y,2));
     }
 
     static void makeGamePhysicsByHitbox(){
 
-        labdaObj.setPosition(new Vector3f(labdaObj.getPosition().x + labdaVelocityX,labdaObj.getPosition().y + labdaVelocityY,0.0f));
+        if(mainSpeed > 0.15)
+            mainSpeed = 0.15f;
 
+
+        //if(labdaVelocityX == 0 && labdaVelocityY == 0)
+        labdaObj.setPosition(new Vector3f(labdaObj.getPosition().x + labdaVelocityX,labdaObj.getPosition().y + labdaVelocityY,0.0f));
+        /*else
+            labdaObj.setPosition(new Vector3f(labdaObj.getPosition().x + labdaVelocityX -0.01f,labdaObj.getPosition().y + labdaVelocityY -0.01f,0.0f));
+
+*/
         //Ütközik a labda a piros playerrel
         if(piros.getHitCircleTransformed().checkOverlapping(labdaObj.getHitCircleTransformed()))
         {
+            hit2.stop();
+            hit2.start();
+
+            double alpha = Math.abs(labdaObj.getPosition().y - piros.getPosition().y) / Math.sqrt(Math.abs((labdaObj.getPosition().x-piros.getPosition().x)*(labdaObj.getPosition().x-piros.getPosition().x)+(labdaObj.getPosition().y-piros.getPosition().y)*(labdaObj.getPosition().y-piros.getPosition().y)));
+            double gammaSugarzas =  Math.toRadians(90 - Math.toDegrees(alpha));
+
             //Jobb lent*/
             if(labdaObj.getPosition().x >= piros.getPosition().x && labdaObj.getPosition().y <= piros.getPosition().y)
             {
-                labdaVelocityX = mainSpeed;
-                labdaVelocityY = -mainSpeed;
+                labdaVelocityX = mainSpeed * (float) gammaSugarzas;
+                labdaVelocityY = -mainSpeed * (float)alpha;
             }
             //Bal fent
             if(labdaObj.getPosition().x <= piros.getPosition().x && labdaObj.getPosition().y >= piros.getPosition().y){
-                labdaVelocityX = -mainSpeed;
-                labdaVelocityY = mainSpeed;
+                labdaVelocityX = -mainSpeed * (float) gammaSugarzas;
+                labdaVelocityY = mainSpeed * (float)alpha;
             }
             //Bal lent
             if(labdaObj.getPosition().x <= piros.getPosition().x && labdaObj.getPosition().y <= piros.getPosition().y){
-                labdaVelocityX = -mainSpeed;
-                labdaVelocityY = -mainSpeed;
+                labdaVelocityX = -mainSpeed * (float) gammaSugarzas;
+                labdaVelocityY = -mainSpeed * (float)alpha;
             }
             //Jobb fent
             if(labdaObj.getPosition().x >= piros.getPosition().x && labdaObj.getPosition().y >= piros.getPosition().y){
-                labdaVelocityX = mainSpeed;
-                labdaVelocityY = mainSpeed;
+                labdaVelocityX = mainSpeed * (float) gammaSugarzas;
+                labdaVelocityY = mainSpeed * (float)alpha;
             }
 
         }
@@ -192,6 +258,9 @@ public class MainGameLoop {
     static void checkGoal(){
         if(labdaObj.getPosition().x <= palyaObj.getPosition().x -0.89f && labdaObj.getPosition().y <= palyaObj.getPosition().y + 0.38f && labdaObj.getPosition().y >= palyaObj.getPosition().y - 0.38f)
         {
+            //hit2.Play();
+            hit1.stop();
+            hit1.start();
             kek.setScore(kek.getScore() + 1);
             resetBall();
             System.out.println("Kes Pontszama: " + kek.getScore());
@@ -199,6 +268,9 @@ public class MainGameLoop {
 
         if(labdaObj.getPosition().x >= palyaObj.getPosition().x + 0.89f && labdaObj.getPosition().y <= palyaObj.getPosition().y + 0.38f && labdaObj.getPosition().y >= palyaObj.getPosition().y - 0.38f)
         {
+            //hit2.Play();
+            hit1.stop();
+            hit1.start();
             piros.setScore(piros.getScore() + 1);
             resetBall();
             System.out.println("Piros Pontszama: " + piros.getScore());
